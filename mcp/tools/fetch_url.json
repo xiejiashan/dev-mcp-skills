@@ -1,0 +1,11 @@
+{
+  "name": "fetch_url",
+  "description": "Fetch text content from a URL (GET only, size-limited)",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "url": { "type": "string", "description": "HTTPS URL to fetch" }
+    },
+    "required": ["url"]
+  }
+}

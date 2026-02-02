@@ -1,0 +1,52 @@
+mcp_version: 0.1
+type: skill
+
+metadata:
+  name: pr_review_assistant
+  description: Summarize and assess GitHub pull requests for reviewers
+  compatibility:
+    - langchain
+    - openai_tools
+    - custom
+
+inputs:
+  - name: pr_url
+    type: string
+    required: true
+
+outputs:
+  format: markdown
+  sections:
+    - Summary
+    - Risks
+    - Missing Tests
+    - Review Checklist
+
+rules:
+  - Do not approve or reject PRs
+  - Do not invent code details
+  - Call out breaking changes explicitly
+  - If information is missing, say so clearly
+
+tools:
+  - name: fetch_url
+    ref: mcp/tools/fetch_url.json
+  - name: summarize_text
+    ref: mcp/tools/summarize_text.json
+
+examples:
+  - input:
+      pr_url: "https://github.com/org/repo/pull/123"
+    output: |
+      ## Summary
+      - Adds caching layer to API client
+      ## Risks
+      - Cache invalidation not covered
+      ## Missing Tests
+      - No tests for cache eviction
+      ## Review Checklist
+      - [ ] Confirm backward compatibility
+
+failure_modes:
+  - condition: URL unreachable or non-text
+    behavior: Ask user to provide PR diff or description manually

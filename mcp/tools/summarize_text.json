@@ -1,0 +1,12 @@
+{
+  "name": "summarize_text",
+  "description": "Summarize text content into a concise technical summary",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "text": { "type": "string" },
+      "max_bullets": { "type": "integer", "default": 5 }
+    },
+    "required": ["text"]
+  }
+}
